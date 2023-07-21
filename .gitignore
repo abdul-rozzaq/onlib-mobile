@@ -449,7 +449,7 @@ node_modules/
 
 # Visual Studio LightSwitch build output
 **/*.HTMLClient/GeneratedArtifacts
-**/*.DesktopClierelatednt/GeneratedArtifacts
+**/*.DesktopClierelated/register/ HTTP/1/register/ HTTP/1nt/GeneratedArtifacts
 **/*.DesktopClient/ModelManifest.xml
 **/*.Server/GeneratedArtifacts
 **/*.Server/ModelManifest.xml

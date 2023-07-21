@@ -1,6 +1,5 @@
 // ignore_for_file: unused_local_variable, avoid_print, use_build_context_synchronously
 
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -30,7 +29,8 @@ class HomePageVM extends ChangeNotifier {
       var url = Uri.parse('$domain/api/user/');
       var token = await Prefs.getUserToken();
 
-      var response = await http.get(url, headers: {'Authorization': "Token $token"});
+      var response =
+          await http.get(url, headers: {'Authorization': "Token $token"});
 
       print(response.statusCode);
       if (response.statusCode == 200) {
@@ -58,23 +58,23 @@ class HomePageVM extends ChangeNotifier {
   }
 
   Future logoutUser() async {
-    try {
-      var url = Uri.parse('$domain/api-auth/logout/');
-      var token = await Prefs.getUserToken();
+    Prefs.clearToken();
+    // try {
+    //   var url = Uri.parse('$domain/api-auth/logout/');
+    //   var token = await Prefs.getUserToken();
 
-      var response =
-          await http.post(url, headers: {'Authorization': "Token $token"});
+    //   var response =
+    //       await http.post(url, headers: {'Authorization': "Token $token"});
 
-      if (response.statusCode == 200) {
-        print('User logout');
-        Prefs.clearToken();
-      }
-    } on SocketException {
-      Utils.showToast('Internet tarmog\'iga ulanmagan bo\'lishi mumkin!');
-    } catch (e) {
-      print(e);
-      Utils.showToast('Nimadur xato ketti.');
-    }
+    //   if (response.statusCode == 200) {
+    //     print('User logout');
+    //   }
+    // } on SocketException {
+    //   Utils.showToast('Internet tarmog\'iga ulanmagan bo\'lishi mumkin!');
+    // } catch (e) {
+    //   print(e);
+    //   Utils.showToast('Nimadur xato ketti.');
+    // }
   }
 
   Future getCategories() async {

@@ -137,7 +137,12 @@ class RegisterScreenState extends State<RegisterScreen> {
     FocusScope.of(context).unfocus();
 
     if (provider.usernameController.text.isNotEmpty &&
-        provider.passwordController.text.isNotEmpty) {
+        provider.passwordController.text.isNotEmpty &&
+        provider.firstNameController.text.isNotEmpty &&
+        provider.lastNameController.text.isNotEmpty) {
+
+          
+      provider.registerUser(context);
       showDialog(
         barrierDismissible: false,
         context: context,
@@ -148,7 +153,6 @@ class RegisterScreenState extends State<RegisterScreen> {
           ),
         ),
       );
-      provider.registerUser(context);
     }
   }
 }

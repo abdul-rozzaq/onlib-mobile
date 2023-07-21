@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 
-var domain = "http://192.168.1.2:8000";
+// var domain = "http://192.168.1.2:8000";
 // var domain = "http://192.168.43.65:8000";
-// var domain = "https://onlib.pythonanywhere.com";
+var domain = "https://onlib.pythonanywhere.com";
 
 var greenColor = Color(0xFF43A047);
 var greenColor2 = Colors.green.shade300;

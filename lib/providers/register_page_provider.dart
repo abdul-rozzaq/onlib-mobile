@@ -21,11 +21,11 @@ class RegPageVM extends ChangeNotifier {
     print('Register clicked');
 
     try {
-      var url = Uri.parse('$domain/api-auth/login/');
+      var url = Uri.parse('$domain/api/register/');
       var response = await http.post(url, body: {
         'username': usernameController.text.trim(),
-        'firstname': firstNameController.text.trim(),
-        'lastname': lastNameController.text.trim(),
+        'first_name': firstNameController.text.trim(),
+        'last_name': lastNameController.text.trim(),
         'password': passwordController.text.trim(),
       });
 
@@ -34,10 +34,10 @@ class RegPageVM extends ChangeNotifier {
       print(jsonData);
 
       if (response.statusCode == 200) {
-        String key = jsonData['key'];
+        String token = jsonData['token'];
 
-        print(key);
-        Prefs.setToken(key);
+        print(token);
+        Prefs.setToken(token);
 
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
