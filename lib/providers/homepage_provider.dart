@@ -21,6 +21,7 @@ class HomePageVM extends ChangeNotifier {
   int index = 0;
 
   List<Category> categories = [];
+  
   User? user;
   List<Book> books = [];
 

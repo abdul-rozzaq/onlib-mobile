@@ -132,7 +132,6 @@ class LoginScreenState extends State<LoginScreen> {
         context: context,
         builder: (context) => Center(
           child: CircularProgressIndicator(
-            strokeWidth: 6,
             color: greenColor,
           ),
         ),

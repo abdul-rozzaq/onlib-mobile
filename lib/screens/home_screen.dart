@@ -73,14 +73,14 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           TabItem(
             icon: provider.index == 3
-                ? Icons.shopping_bag
-                : Icons.shopping_bag_outlined,
-            title: 'Bag',
+                ? Icons.chat
+                : Icons.chat_outlined,
+            title: 'Chat',
             // title: 'Wishlist',
           ),
           TabItem(
             icon: provider.index == 4 ? Icons.person : Icons.person_outlined,
-            title: 'Bag',
+            title: 'Account',
             // title: 'Wishlist',
           ),
         ],
