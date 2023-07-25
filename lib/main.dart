@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:onlib/providers/chat_provider.dart';
 import 'package:onlib/providers/register_page_provider.dart';
 import 'package:onlib/services/prefs.dart';
 import 'package:onlib/providers/homepage_provider.dart';
@@ -21,6 +22,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => HomePageVM()),
         ChangeNotifierProvider(create: (_) => LoginPageVM()),
         ChangeNotifierProvider(create: (_) => RegPageVM()),
+        ChangeNotifierProvider(create: (_) => ChatScreenVM()),
       ],
       child: const MyApp(),
     ),

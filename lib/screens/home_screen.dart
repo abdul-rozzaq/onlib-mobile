@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onlib/config.dart';
 import 'package:onlib/shimmer_tabs/books_tab_shimmer.dart';
-import 'package:onlib/tabs/bag_tab.dart';
+import 'package:onlib/tabs/chat_tab.dart';
 import 'package:onlib/tabs/books_tab.dart';
 import 'package:onlib/tabs/bookshelf_tab.dart';
 import 'package:onlib/tabs/wishlist_tab.dart';
@@ -32,8 +32,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
     // provider.updateToken();
     provider.getUser(context);
-    provider.getCategories();
     provider.getBooks();
+    provider.getCategories();
+    provider.getChatGroup();
+  }
+
+  Future<void> update(HomePageVM provider) async {
+    await provider.getBooks();
+    await provider.getCategories();
   }
 
   @override
@@ -44,14 +50,18 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: const CAppBar(),
       drawer: const CDrawer(),
       body: [
-        !provider.isLoadingBook &&
-                !provider.isLoadingCategory &&
-                !provider.isLoadingUser
-            ? Books(provider: provider)
-            : const BooksShimmer(),
+        RefreshIndicator(
+          color: greenColor,
+          onRefresh: () => update(provider),
+          child: !provider.isLoadingBook &&
+                  !provider.isLoadingCategory &&
+                  !provider.isLoadingUser
+              ? Books(provider: provider)
+              : const BooksShimmer(),
+        ),
         const Bookshelf(),
         const Wishlist(),
-        const Bag(),
+        ChatTab(provider: provider),
         AccountTab(provider: provider),
       ][provider.index],
       bottomNavigationBar: BottomBarFloating(
@@ -72,9 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
             // title: 'Shop',
           ),
           TabItem(
-            icon: provider.index == 3
-                ? Icons.chat
-                : Icons.chat_outlined,
+            icon: provider.index == 3 ? Icons.chat : Icons.chat_outlined,
             title: 'Chat',
             // title: 'Wishlist',
           ),

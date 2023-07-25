@@ -21,73 +21,70 @@ class _BooksShimmerState extends State<BooksShimmer> {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: _onrefresh,
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 20,
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(
+            height: 20,
+          ),
+          const Padding(
+            padding: EdgeInsets.only(left: 25.0),
+            child: Text(
+              'For you',
+              style: TextStyle(
+                  color: Colors.black, fontSize: 25, fontFamily: 'Lobster'),
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 25.0),
-              child: Text(
-                'For you',
-                style: TextStyle(
-                    color: Colors.black, fontSize: 25, fontFamily: 'Lobster'),
+          ),
+          const SizedBox(height: 10),
+          SizedBox(
+            height: 250,
+            child: ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) => const SliderBookShimmer(),
+              itemCount: 10,
+            ),
+          ),
+          const SizedBox(height: 15),
+          Container(
+            padding: const EdgeInsets.only(left: 25.0),
+            child: Text(
+              'Popular Books',
+              style: TextStyle(
+                color: blackColor,
+                fontSize: 25,
+                fontFamily: 'Lobster',
               ),
             ),
-            const SizedBox(height: 10),
-            SizedBox(
-              height: 250,
-              child: ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) => const SliderBookShimmer(),
-                itemCount: 10,
-              ),
+          ),
+          const SizedBox(height: 5),
+          SizedBox(
+            height: 38,
+            child: ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              scrollDirection: Axis.horizontal,
+              itemCount: 10,
+              itemBuilder: (context, index) => const CategoryShimmer(),
             ),
-            const SizedBox(height: 15),
-            Container(
-              padding: const EdgeInsets.only(left: 25.0),
-              child: Text(
-                'Popular Books',
-                style: TextStyle(
-                  color: blackColor,
-                  fontSize: 25,
-                  fontFamily: 'Lobster',
-                ),
+          ),
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: GridView.builder(
+              shrinkWrap: true,
+              physics: const BouncingScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                mainAxisExtent: 250,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+                crossAxisCount: 2,
               ),
+              itemBuilder: (_, index) => const MainBookShimmer(),
+              itemCount: 15,
             ),
-            const SizedBox(height: 5),
-            SizedBox(
-              height: 38,
-              child: ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                scrollDirection: Axis.horizontal,
-                itemCount: 10,
-                itemBuilder: (context, index) => const CategoryShimmer(),
-              ),
-            ),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: GridView.builder(
-                shrinkWrap: true,
-                physics: const BouncingScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  mainAxisExtent: 250,
-                  crossAxisSpacing: 8,
-                  mainAxisSpacing: 8,
-                  crossAxisCount: 2,
-                ),
-                itemBuilder: (_, index) => const MainBookShimmer(),
-                itemCount: 15,
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }

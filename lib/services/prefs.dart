@@ -5,10 +5,12 @@
 // import 'package:onlib/services/utils.dart';
 // import '../config.dart';
 
-
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../models/user_model.dart';
+
 class Prefs {
+  // Token //
   static Future<String?> getUserToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
@@ -26,5 +28,23 @@ class Prefs {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     print('Token cleaned');
     prefs.remove('token');
+  }
+
+  // User //
+
+  static Future<bool> setUser(User user) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.setString('user', user.toJson().toString());
+
+    return true;
+  }
+
+  static Future<User> getUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String? userString = prefs.getString('user');
+
+    return userFromString(userString!);
   }
 }

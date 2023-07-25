@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:onlib/config.dart';
 import 'package:onlib/models/book_model.dart';
 import 'package:onlib/models/category_model.dart';
+import 'package:onlib/models/group_model.dart';
 import 'package:onlib/models/user_model.dart';
 import 'package:onlib/screens/login_screen.dart';
 
@@ -17,12 +18,13 @@ class HomePageVM extends ChangeNotifier {
   bool isLoadingCategory = true;
   bool isLoadingUser = true;
   bool isLoadingBook = true;
+  bool isLoadingGroup = true;
 
   int index = 0;
 
-  List<Category> categories = [];
-  
   User? user;
+  List<Category> categories = [];
+  List<Group> groups = [];
   List<Book> books = [];
 
   Future getUser(BuildContext context) async {
@@ -33,9 +35,8 @@ class HomePageVM extends ChangeNotifier {
       var response =
           await http.get(url, headers: {'Authorization': "Token $token"});
 
-      print(response.statusCode);
       if (response.statusCode == 200) {
-        user = userFromJson(response.body);
+        user = userFromString(response.body);
         print('User fetched');
 
         isLoadingUser = false;
@@ -60,22 +61,6 @@ class HomePageVM extends ChangeNotifier {
 
   Future logoutUser() async {
     Prefs.clearToken();
-    // try {
-    //   var url = Uri.parse('$domain/api-auth/logout/');
-    //   var token = await Prefs.getUserToken();
-
-    //   var response =
-    //       await http.post(url, headers: {'Authorization': "Token $token"});
-
-    //   if (response.statusCode == 200) {
-    //     print('User logout');
-    //   }
-    // } on SocketException {
-    //   Utils.showToast('Internet tarmog\'iga ulanmagan bo\'lishi mumkin!');
-    // } catch (e) {
-    //   print(e);
-    //   Utils.showToast('Nimadur xato ketti.');
-    // }
   }
 
   Future getCategories() async {
@@ -113,6 +98,30 @@ class HomePageVM extends ChangeNotifier {
         print('Books fetched');
 
         isLoadingBook = false;
+        notifyListeners();
+      }
+    } on SocketException {
+      Utils.showToast('Internet tarmog\'iga ulanmagan bo\'lishi mumkin!');
+    } catch (e) {
+      print(e);
+      Utils.showToast('Nimadur xato ketti.');
+    }
+  }
+
+  Future getChatGroup() async {
+    try {
+      var url = Uri.parse('$domain/api/get-groups/');
+      var token = await Prefs.getUserToken();
+
+      var response =
+          await http.get(url, headers: {'Authorization': "Token $token"});
+
+     
+      if (response.statusCode == 200) {
+        groups = groupsFromJson(response.body);
+        print('Groups fetched');
+
+        isLoadingGroup = false;
         notifyListeners();
       }
     } on SocketException {

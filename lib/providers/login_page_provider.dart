@@ -12,8 +12,8 @@ import '../config.dart';
 import '../services/utils.dart';
 
 class LoginPageVM extends ChangeNotifier {
-  TextEditingController usernameController = TextEditingController(text: 'admin');
-  TextEditingController passwordController = TextEditingController(text: 'admin');
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   Future<void> getToken(BuildContext context) async {
     print('Login Clicked');

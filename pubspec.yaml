@@ -28,6 +28,7 @@ dependencies:
   shimmer:
   flutter_native_splash: ^2.3.1
   jwt_decoder: ^2.0.1
+  web_socket_channel: ^2.4.0
 
 dev_dependencies:
   flutter_test:

@@ -27,158 +27,86 @@ class _BooksState extends State<Books> {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: () => widget.provider.getCategories(),
-      child: !widget.provider.isLoadingCategory
-          ? SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 25.0),
-                    child: Text(
-                      'For you',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 25,
-                          fontFamily: 'Lobster'),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  // const SingleChildScrollView(
-                  //   padding: EdgeInsets.symmetric(horizontal: 5),
-                  //   scrollDirection: Axis.horizontal,
-                  //   child: Row(
-                  //     mainAxisSize: MainAxisSize.max,
-                  //     children: [
-                  //       SliderBook(),
-                  //       SliderBook(),
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(
+            height: 20,
+          ),
+          const Padding(
+            padding: EdgeInsets.only(left: 25.0),
+            child: Text(
+              'For you',
+              style: TextStyle(
+                  color: Colors.black, fontSize: 25, fontFamily: 'Lobster'),
+            ),
+          ),
+          const SizedBox(height: 10),
+          SizedBox(
+            height: 250,
+            child: ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) =>
+                  SliderBook(book: widget.provider.books[index]),
+              itemCount: widget.provider.books.length,
+            ),
+          ),
 
-                  //     ],
-                  //   ),
-                  // ),
-                  SizedBox(
-                    height: 250,
-                    child: ListView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => SliderBook(book: widget.provider.books[index]),
-                      itemCount: widget.provider.books.length,
-                    ),
-                  ),
-
-                  const SizedBox(height: 15),
-                  Container(
-                    padding: const EdgeInsets.only(left: 25.0),
-                    child: Text(
-                      'Popular Books',
-                      style: TextStyle(
-                          color: blackColor,
-                          fontSize: 25,
-                          fontFamily: 'Lobster'),
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  // Padding(
-                  //   padding: const EdgeInsets.only(left: 15.0),
-                  //   child: SingleChildScrollView(
-                  //     scrollDirection: Axis.horizontal,
-                  //     child: ListView(
-                  //       shrinkWrap: true,
-                  //       children: [
-                  //         Category(
-                  //             type: 'All',
-                  //             updateCategory: updateSelectedCategory,
-                  //             selectedCategory: selectedCategory),
-                  //         Category(
-                  //             type: 'Adventure stories',
-                  //             updateCategory: updateSelectedCategory,
-                  //             selectedCategory: selectedCategory),
-                  //         Category(
-                  //             type: 'Classics',
-                  //             updateCategory: updateSelectedCategory,
-                  //             selectedCategory: selectedCategory),
-                  //         Category(
-                  //             type: 'Crime',
-                  //             updateCategory: updateSelectedCategory,
-                  //             selectedCategory: selectedCategory),
-                  //         Category(
-                  //             type: 'Fairy tales',
-                  //             updateCategory: updateSelectedCategory,
-                  //             selectedCategory: selectedCategory),
-                  //         Category(
-                  //             type: 'Fantasy',
-                  //             updateCategory: updateSelectedCategory,
-                  //             selectedCategory: selectedCategory),
-                  //         Category(
-                  //             type: 'Historical fiction',
-                  //             updateCategory: updateSelectedCategory,
-                  //             selectedCategory: selectedCategory),
-                  //         Category(
-                  //             type: 'Horror',
-                  //             updateCategory: updateSelectedCategory,
-                  //             selectedCategory: selectedCategory),
-                  //         Category(
-                  //             type: 'Humour and satire',
-                  //             updateCategory: updateSelectedCategory,
-                  //             selectedCategory: selectedCategory),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
-                  SizedBox(
-                    height: 38,
-                    child: ListView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: widget.provider.categories.length,
-                      itemBuilder: (context, index) => Category(
-                        type: widget.provider.categories[index].name,
-                        updateCategory: updateSelectedCategory,
-                        selectedCategory: selectedCategory,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                    child: GridView(
-                      physics: const BouncingScrollPhysics(),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        mainAxisExtent: 250,
-                        crossAxisSpacing: 8,
-                        mainAxisSpacing: 8,
-                        crossAxisCount: 2,
-                      ),
-                      shrinkWrap: true,
-                      children: const [
-                        MainBook(),
-                        MainBook(),
-                        MainBook(),
-                        MainBook(),
-                        MainBook(),
-                        MainBook(),
-                        MainBook(),
-                        MainBook(),
-                        MainBook(),
-                        MainBook(),
-                        MainBook(),
-                        MainBook(),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            )
-          : Center(
-              child: CircularProgressIndicator(
-                color: greenColor,
+          const SizedBox(height: 15),
+          Container(
+            padding: const EdgeInsets.only(left: 25.0),
+            child: Text(
+              'Popular Books',
+              style: TextStyle(
+                  color: blackColor, fontSize: 25, fontFamily: 'Lobster'),
+            ),
+          ),
+          const SizedBox(height: 5),
+          SizedBox(
+            height: 38,
+            child: ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              scrollDirection: Axis.horizontal,
+              itemCount: widget.provider.categories.length,
+              itemBuilder: (context, index) => Category(
+                type: widget.provider.categories[index].name,
+                updateCategory: updateSelectedCategory,
+                selectedCategory: selectedCategory,
               ),
             ),
+          ),
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: GridView(
+              physics: const BouncingScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                mainAxisExtent: 250,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+                crossAxisCount: 2,
+              ),
+              shrinkWrap: true,
+              children: const [
+                MainBook(),
+                MainBook(),
+                MainBook(),
+                MainBook(),
+                MainBook(),
+                MainBook(),
+                MainBook(),
+                MainBook(),
+                MainBook(),
+                MainBook(),
+                MainBook(),
+                MainBook(),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 
